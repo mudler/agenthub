@@ -13,8 +13,8 @@ When operating Git and the GitHub CLI (`gh`), you are interacting with persisten
 ## 1. Architectural Setup: Base Repositories vs. Worktrees
 To support concurrent agent tasks without locking errors, you must separate the Git database from the working files.
 
-* **Base Repository** (`/root/<repo_name>`): Used *only* to hold the `.git` database. You never write code here.
-* **Isolated Worktrees** (`/root/worktrees/<repo_name>/<branch_name>`): Dedicated directories for specific PRs or features. 
+* **Base Repository** (`$HOME/<repo_name>`): Used *only* to hold the `.git` database. You never write code here.
+* **Isolated Worktrees** (<code_base_dir>/worktrees/<repo_name>/<branch_name>`): Dedicated directories for specific PRs or features. 
 
 ### Creating and Managing Worktrees
 ```bash
