@@ -10,7 +10,7 @@ When operating Git and the GitHub CLI (`gh`), you are interacting with persisten
 
 ---
 
-**Note**: `$HOME` is the environment variable for the user's home directory (e.g., `/root`, `/home/username`). `<code_base_dir>` is the workspace root where repositories and worktrees are stored.
+**Note**: `$HOME` is the environment variable for the user's home directory (e.g., `/root`, `/home/username`). `<code_base_dir>` represents `$HOME/repositories`, which is the workspace root where repositories and worktrees are stored.
 
 ## 1. Architectural Setup: Base Repositories vs. Worktrees
 To support concurrent agent tasks without locking errors, you must separate the Git database from the working files.
