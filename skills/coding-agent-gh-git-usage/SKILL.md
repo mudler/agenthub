@@ -10,6 +10,8 @@ When operating Git and the GitHub CLI (`gh`), you are interacting with persisten
 
 ---
 
+**Note**: `$HOME` is the environment variable for the user's home directory (e.g., `/root`, `/home/username`). `<code_base_dir>` is the workspace root where repositories and worktrees are stored.
+
 ## 1. Architectural Setup: Base Repositories vs. Worktrees
 To support concurrent agent tasks without locking errors, you must separate the Git database from the working files.
 
@@ -19,17 +21,17 @@ To support concurrent agent tasks without locking errors, you must separate the 
 ### Creating and Managing Worktrees
 ```bash
 # 1. Always fetch the latest remote state first from inside the Base Repo
-cd /root/<repo_name>
+cd <code_base_dir>/<repo_name>
 git fetch origin <branch_name>
 
 # 2. Create a new branch and worktree simultaneously
-git worktree add -b <new_branch> /root/worktrees/<repo_name>/<new_branch> origin/main
+git worktree add -b <new_branch> <code_base_dir>/worktrees/<repo_name>/<new_branch> origin/main
 
 # 3. Create a worktree for an existing branch
-git worktree add /root/worktrees/<repo_name>/<existing_branch> <existing_branch>
+git worktree add <code_base_dir>/worktrees/<repo_name>/<existing_branch> <existing_branch>
 
 # 4. Clean up a worktree when the PR is merged/closed
-git worktree remove /root/worktrees/<repo_name>/<branch_name> --force
+git worktree remove <code_base_dir>/worktrees/<repo_name>/<branch_name> --force
 ```
 
 ---
@@ -38,7 +40,7 @@ git worktree remove /root/worktrees/<repo_name>/<branch_name> --force
 If you are waking up or resuming a session, the worktree might be in a dirty or conflicted state. You must force it back to a clean state matching the remote branch before writing new code.
 
 ```bash
-cd /root/worktrees/<repo_name>/<branch_name>
+cd <code_base_dir>/worktrees/<repo_name>/<branch_name>
 
 # Nuke any uncommitted, modified, or staged files
 git reset --hard HEAD
