@@ -133,12 +133,17 @@ function switchTab(tab) {
     document.getElementById('skillsGrid').style.display = tab === 'skills' ? '' : 'none';
 
     const countEl = document.getElementById('agentCount');
+    const addBtn = document.getElementById('addBtn');
     if (tab === 'agents') {
         countEl.textContent = `${agents.length} agent${agents.length !== 1 ? 's' : ''}`;
         renderAgents(agents);
+        addBtn.href = 'https://github.com/mudler/agenthub/new/main/agents';
+        addBtn.innerHTML = '<i class="fa-solid fa-plus"></i> Add Agent';
     } else {
         countEl.textContent = `${skills.length} skill${skills.length !== 1 ? 's' : ''}`;
         renderSkills(skills);
+        addBtn.href = 'https://github.com/mudler/agenthub/new/main/skills';
+        addBtn.innerHTML = '<i class="fa-solid fa-plus"></i> Add Skill';
     }
     document.getElementById('noResults').style.display = 'none';
     document.getElementById('searchInput').value = '';
@@ -211,9 +216,16 @@ function createAgentCard(agent) {
     if (agent.enable_kb) badges.push('<span class="badge badge-kb">knowledge base</span>');
     if (agent.enable_skills) badges.push('<span class="badge badge-skills">skills</span>');
 
+    const avatar = agent.image
+        ? `<img class="agent-avatar" src="${escapeHtml(agent.image)}" alt="${name}">`
+        : `<div class="agent-avatar agent-avatar-placeholder"><i class="fa-solid fa-robot"></i></div>`;
+
     return `
         <div class="agent-card">
-            <h3>${name}</h3>
+            <div class="agent-card-header">
+                ${avatar}
+                <h3>${name}</h3>
+            </div>
             <div class="badges">${badges.join('')}</div>
             <p class="description">${description}</p>
             <button class="card-download-btn" title="Download Agent (.json)"><i class="fa-solid fa-download"></i></button>
@@ -282,7 +294,12 @@ function showAgentModal(agent) {
     const summary = createAgentSummary(agent);
     const json = JSON.stringify(agent, null, 2);
 
+    const modalAvatar = agent.image
+        ? `<img class="modal-agent-avatar" src="${escapeHtml(agent.image)}" alt="${escapeHtml(agent.name || '')}">`
+        : '';
+
     body.innerHTML = `
+        ${modalAvatar}
         ${summary}
         <h3>Full Configuration</h3>
         <pre>${escapeHtml(json)}</pre>
