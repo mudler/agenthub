@@ -24,6 +24,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Build manifests
+        run: make build
+
       - name: Setup Pages
         uses: actions/configure-pages@v4
 

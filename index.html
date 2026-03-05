@@ -1,39 +1,57 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AgentHub - Agent Configuration Repository</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jszip@3/dist/jszip.min.js"></script>
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
     <header>
-        <div class="container">
-            <h1>🤖 AgentHub</h1>
+        <div class="container header-inner">
+            <h1><i class="fa-solid fa-robot"></i> AgentHub</h1>
             <p>Browse and share agent configurations</p>
+            <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme">
+                <i class="fa-solid fa-moon"></i>
+            </button>
         </div>
     </header>
 
     <main class="container">
         <div class="search-section">
-            <input type="text" id="searchInput" placeholder="Search agents by name, description, or model...">
+            <input type="text" id="searchInput" placeholder="Search agents, skills, models...">
             <div class="stats">
                 <span id="agentCount">0 agents</span>
             </div>
+        </div>
+
+        <div class="tab-bar">
+            <button class="tab active" data-tab="agents"><i class="fa-solid fa-robot"></i> Agents</button>
+            <button class="tab" data-tab="skills"><i class="fa-solid fa-wand-magic-sparkles"></i> Skills</button>
         </div>
 
         <div id="agentsGrid" class="agents-grid">
             <!-- Agent cards will be loaded here -->
         </div>
 
+        <div id="skillsGrid" class="agents-grid" style="display: none;">
+            <!-- Skill cards will be loaded here -->
+        </div>
+
         <div id="noResults" class="no-results" style="display: none;">
-            <p>No agents found matching your search.</p>
+            <p>No results found matching your search.</p>
         </div>
     </main>
 
     <footer>
         <div class="container">
-            <p>AgentHub - Share and discover agent configurations</p>
+            <p>AgentHub &mdash; Share and discover agent configurations</p>
         </div>
     </footer>
 
@@ -43,7 +61,11 @@
             <span class="close-modal">&times;</span>
             <h2 id="modalTitle"></h2>
             <div id="modalBody"></div>
-            <button id="downloadBtn" class="download-btn">Download JSON</button>
+            <div class="modal-actions">
+                <button id="copyBtn" class="action-btn copy-btn"><i class="fa-solid fa-copy"></i> Copy JSON</button>
+                <button id="downloadBtn" class="action-btn download-btn"><i class="fa-solid fa-download"></i> Download</button>
+                <button id="exportSkillBtn" class="action-btn download-btn" style="display:none;"><i class="fa-solid fa-file-zipper"></i> Download Skill (.zip)</button>
+            </div>
         </div>
     </div>
 
