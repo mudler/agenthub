@@ -697,3 +697,34 @@ footer {
         flex-direction: column;
     }
 }
+
+/* LocalAI Branding Additions */
+.localai-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: var(--gradient-primary);
+    color: #fff;
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    margin: 1rem 0;
+}
+
+.localai-badge:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-glow);
+}
+
+.localai-link {
+    color: var(--color-primary);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.localai-link:hover {
+    color: var(--color-primary-hover);
+    text-decoration: underline;
+}
